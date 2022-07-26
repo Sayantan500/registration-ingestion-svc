@@ -16,12 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegistrationIngestionController {
 
     @Autowired
-    @Qualifier(value = "verify_email_domain_and_pattern_svc")
-    private IngestionService emailPatterAndDomainVerify;
-
-    @Autowired
-    @Qualifier(value = "enque_user_svc")
-    private IngestionService userCreationRequestEnque;
+    private IngestionService ingestionService;
 
     @PostMapping
     public ResponseEntity<String> registerNewUser(@RequestBody User newUser){
@@ -30,9 +25,9 @@ public class RegistrationIngestionController {
         // Check if the user is already present in firebase auth database or not,
         // to prevent creation of multiple same user
 
-        if(emailPatterAndDomainVerify.verifyEmailDomainAndPattern(newUser.getEmail()))
+        if(ingestionService.verifyEmailDomainAndPattern(newUser.getEmail()))
         {
-            if (userCreationRequestEnque.enqueNewUserCreationRequest(newUser))
+            if (ingestionService.enqueNewUserCreationRequest(newUser))
                 return ResponseEntity
                         .status(HttpStatus.ACCEPTED)
                         .body("Check your email for verification code...");
