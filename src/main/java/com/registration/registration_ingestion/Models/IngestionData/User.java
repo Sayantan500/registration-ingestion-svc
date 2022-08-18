@@ -1,15 +1,17 @@
 package com.registration.registration_ingestion.Models.IngestionData;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class User {
     @JsonProperty("biodata")
-    private userBioData User_BioData;
+    private final UserBioData User_BioData;
 
     @JsonProperty("credentials")
-    private userCredentials User_Credentials;
+    private final UserCredentials User_Credentials;
 
-    public String getEmail(){
+    public String getEmail() {
         return User_BioData.getEmail();
     }
 }

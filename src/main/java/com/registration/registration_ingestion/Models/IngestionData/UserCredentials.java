@@ -1,13 +1,13 @@
 package com.registration.registration_ingestion.Models.IngestionData;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
 
-@Component
-class userCredentials {
+@RequiredArgsConstructor
+class UserCredentials{
     @JsonProperty("email")
-    private String Email;
+    private final String Email;
 
     @JsonProperty("passphrase")
-    private String Password;
+    private final String Password;
 }
