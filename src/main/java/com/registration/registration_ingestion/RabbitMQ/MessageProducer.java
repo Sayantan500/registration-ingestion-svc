@@ -1,6 +1,6 @@
 package com.registration.registration_ingestion.RabbitMQ;
 
-import com.registration.registration_ingestion.Models.IngestionData.User;
+import com.registration.registration_ingestion.Models.RabbitMessage;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ class MessageProducer implements RabbitMessageProducer {
     RabbitMQConfiguration rabbitMQConfiguration;
 
     @Override
-    public boolean EnqueueUserForVerification(User userToVerify) {
+    public boolean EnqueueUserForVerification(RabbitMessage userToVerify) {
         try{
             rabbitTemplate.convertAndSend(
                     rabbitMQConfiguration.getEXCHANGE_NAME(),
@@ -23,7 +23,7 @@ class MessageProducer implements RabbitMessageProducer {
                     userToVerify
             );
         }catch (AmqpException amqpException){
-            System.out.println(amqpException.getMessage());
+            System.out.println("[ MessageProducer.EnqueueUserForVerification() ] " + amqpException.getMessage());
             return false;
         }
         return true;
