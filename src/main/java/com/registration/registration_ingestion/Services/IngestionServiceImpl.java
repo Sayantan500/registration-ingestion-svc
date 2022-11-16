@@ -31,10 +31,10 @@ final class IngestionServiceImpl implements IngestionService
     }
 
     public boolean verifyEmailDomainAndPattern(String email) {
-        /**
-         * sets a default value for the pattern of email name
-         * if the value is not provided through the properties file.
-         * */
+        /*
+          sets a default value for the pattern of email name
+          if the value is not provided through the properties file.
+          */
         if(email_nameBox_regex == null || email_nameBox_regex.compareToIgnoreCase("")==0)
             email_nameBox_regex = "[[a-z]+[A-z]]*";
         final Pattern emailPattern = Pattern.compile(email_nameBox_regex);
@@ -47,8 +47,9 @@ final class IngestionServiceImpl implements IngestionService
                     if(email.compareTo("")==0)
                         isMailboxNameOk.set(false);
                     final String mailBoxName = email.split("@")[0];
-                    if (emailPattern.matcher(mailBoxName).matches())
-                        isMailboxNameOk.set(true);
+                    isMailboxNameOk.set(
+                            mailBoxName.length() >= 7 && emailPattern.matcher(mailBoxName).matches()
+                    );
                 }
         );
 
