@@ -12,6 +12,10 @@ public class User {
     private final UserCredentials User_Credentials;
 
     public String getEmail() {
-        return User_BioData.getEmail();
+        return User_Credentials.getEmail();
+    }
+
+    public String getPassword(){
+        return User_Credentials.getPassword();
     }
 }
